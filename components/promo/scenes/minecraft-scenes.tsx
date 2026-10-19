@@ -35,7 +35,7 @@ export function MinecraftScene({ t, duration, language = 'ar' }: SceneProps) {
             {tr(language, 'mcDesc')}
           </Reveal>
           <div className="mt-12 flex gap-4" dir="ltr">
-            {['1.8.9', '1.20.x', '1.21.x'].map((version, i) => (
+            {['1.8.9', '1.20.x', '1.21.x', '26.x'].map((version, i) => (
               <Reveal
                 key={version}
                 t={t}
