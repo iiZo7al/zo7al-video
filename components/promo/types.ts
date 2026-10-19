@@ -3,6 +3,7 @@ import type { ComponentType } from 'react'
 export type SceneProps = {
   t: number
   duration: number
+  language?: Language
 }
 
 export type Language = 'ar' | 'en' | 'es' | 'fr' | 'de' | 'pt' | 'tr' | 'ja' | 'ko' | 'zh'

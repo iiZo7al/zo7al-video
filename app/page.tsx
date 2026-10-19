@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PromoPlayer } from '@/components/promo/promo-player'
 
 const languages = [
@@ -33,6 +33,10 @@ export default function Page() {
   const [language, setLanguage] = useState<(typeof languages)[number]['code']>('ar')
   const selected = languages.find((item) => item.code === language)!
   const text = copy[language]
+  useEffect(() => {
+    document.documentElement.lang = language
+    document.documentElement.dir = selected.dir
+  }, [language, selected.dir])
   return (
     <main dir={selected.dir} lang={language} className="min-h-screen bg-[#07080b] px-4 py-10 text-white md:px-8 md:py-14">
       <div className="mx-auto flex max-w-6xl flex-col gap-8">

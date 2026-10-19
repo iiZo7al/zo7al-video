@@ -12,6 +12,7 @@ import { easeOutBack, easeOutExpo, progress } from '@/lib/motion'
 import { BrandIcon } from '../brand-icon'
 import { Eyebrow, Reveal, SceneShell, TitleWords } from '../primitives'
 import type { SceneProps } from '../types'
+import { localizeMapTitle, tr } from '../translations'
 
 const PURPLE = '#8b5cf6'
 const CYAN = '#19d9ff'
@@ -28,19 +29,19 @@ const ISLANDS = [
   { code: '2404-2844-7787', title: 'عاركني بالبناء' },
 ]
 
-export function FortniteScene({ t, duration }: SceneProps) {
+export function FortniteScene({ t, duration, language = 'ar' }: SceneProps) {
   return (
     <SceneShell t={t} duration={duration} accent={PURPLE} glowPosition="50% 30%">
       <div className="flex h-full flex-col justify-center px-[150px]">
         <div className="flex items-end justify-between gap-10">
           <div>
             <Reveal t={t} at={0.2}>
-              <Eyebrow accent={PURPLE}>فورتنايت كرييتف</Eyebrow>
+              <Eyebrow accent={PURPLE}>{tr(language, 'fortEyebrow')}</Eyebrow>
             </Reveal>
             <TitleWords
               t={t}
               at={0.35}
-              words={['كل', 'ماب', 'في', 'مكان', 'واحد']}
+              words={tr(language, 'fortTitle').split('|')}
               accentIndex={1}
               accent={PURPLE}
               stagger={0.08}
@@ -53,7 +54,7 @@ export function FortniteScene({ t, duration }: SceneProps) {
             y={20}
             className="mb-4 inline-flex items-center gap-4 rounded-full border border-[#8b5cf6]/40 bg-[#8b5cf6]/15 px-8 py-4 text-[28px] font-semibold text-white"
           >
-            كود صانع المحتوى:
+            {tr(language, 'creator')}
             <span dir="ltr" className="text-[#19d9ff]">
               Zo7al
             </span>
@@ -81,7 +82,7 @@ export function FortniteScene({ t, duration }: SceneProps) {
                   style={{ transform: `scale(${1.12 - 0.12 * p})` }}
                 />
                 <div className="flex items-center justify-between gap-3 px-5 py-4">
-                  <span className="truncate text-[22px] font-semibold text-white">{island.title}</span>
+                  <span className="truncate text-[22px] font-semibold text-white">{localizeMapTitle(language, island.code, island.title)}</span>
                   <span dir="ltr" className="shrink-0 font-mono text-[18px] text-[#c4b5fd]">
                     {island.code}
                   </span>
@@ -97,7 +98,7 @@ export function FortniteScene({ t, duration }: SceneProps) {
 
 const SOCIALS = [siYoutube, siDiscord, siTiktok, siInstagram, siX, siTwitch, siKick, siSnapchat]
 
-export function SocialsScene({ t, duration }: SceneProps) {
+export function SocialsScene({ t, duration, language = 'ar' }: SceneProps) {
   const radiusX = 640
   const radiusY = 300
   return (
@@ -128,18 +129,18 @@ export function SocialsScene({ t, duration }: SceneProps) {
 
         <div className="relative z-10">
           <Reveal t={t} at={0.2} className="flex justify-center">
-            <Eyebrow accent={CYAN}>المجتمع</Eyebrow>
+            <Eyebrow accent={CYAN}>{tr(language, 'socialEyebrow')}</Eyebrow>
           </Reveal>
           <TitleWords
             t={t}
             at={0.35}
-            words={['تابع', 'الرحلة.']}
+            words={tr(language, 'socialTitle').split('|')}
             accentIndex={1}
             accent={CYAN}
             className="mt-6 text-[150px] font-bold leading-[1.1] text-white"
           />
           <Reveal t={t} at={1} className="mt-4 text-[38px] text-[#c9ced6]">
-            كل منصة، في مكان واحد.
+            {tr(language, 'socialDesc')}
           </Reveal>
           <Reveal t={t} at={1.4} className="mt-8 text-[32px] font-semibold text-[#19d9ff]">
             <span dir="ltr">@iiZo7al</span>
@@ -159,17 +160,17 @@ const RANKS = [
   { name: 'MVP++', image: '/video/rank-mvppp.png' },
 ]
 
-export function StoreScene({ t, duration }: SceneProps) {
+export function StoreScene({ t, duration, language = 'ar' }: SceneProps) {
   return (
     <SceneShell t={t} duration={duration} accent={ORANGE} glowPosition="50% 70%">
       <div className="flex h-full flex-col items-center justify-center px-[150px] text-center">
         <Reveal t={t} at={0.2} className="flex justify-center">
-          <Eyebrow accent={ORANGE}>رتب السيرفر</Eyebrow>
+          <Eyebrow accent={ORANGE}>{tr(language, 'storeEyebrow')}</Eyebrow>
         </Reveal>
         <TitleWords
           t={t}
           at={0.35}
-          words={['متجر', 'شبكة', 'زحل']}
+          words={tr(language, 'storeTitle').split('|')}
           accentIndex={2}
           accent={ORANGE}
           className="mt-5 text-[110px] font-bold leading-[1.1] text-white"
@@ -195,7 +196,7 @@ export function StoreScene({ t, duration }: SceneProps) {
           })}
         </div>
         <Reveal t={t} at={2.2} className="mt-10 text-[30px] text-[#c9ced6]">
-          جميع المشتريات تتم بأمان عبر Tebex — المتجر الرسمي لزحل.
+          {tr(language, 'storeDesc')}
         </Reveal>
       </div>
     </SceneShell>
