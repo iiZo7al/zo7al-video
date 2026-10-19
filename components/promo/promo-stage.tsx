@@ -1,17 +1,20 @@
+import type { Ref } from 'react'
 import { easeOutExpo, progress } from '@/lib/motion'
 import { Starfield } from './primitives'
-import { SCENES } from './timeline'
+import { getScenes } from './timeline'
+import type { Language } from './types'
 
-export function PromoStage({ time }: { time: number }) {
+export function PromoStage({ time, language, stageRef }: { time: number; language: Language; stageRef?: Ref<HTMLDivElement> }) {
   const badge = easeOutExpo(progress(time, 4.2, 0.8))
+  const scenes = getScenes(language)
 
   return (
-    <div dir="rtl" className="relative h-[1080px] w-[1920px] overflow-hidden bg-[#07080b] font-sans text-white">
+    <div ref={stageRef} dir={language === 'ar' ? 'rtl' : 'ltr'} lang={language} className="relative h-[1080px] w-[1920px] overflow-hidden bg-[#07080b] font-sans text-white">
       <Starfield t={time} />
-      {SCENES.map(({ id, start, duration, Component }) => {
+      {scenes.map(({ id, start, duration, Component }) => {
         const local = time - start
         if (local < 0 || local > duration) return null
-        return <Component key={id} t={local} duration={duration} />
+        return <Component key={id} t={local} duration={duration} language={language} />
       })}
 
       <div

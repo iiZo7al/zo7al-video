@@ -3,12 +3,13 @@ import { easeOutBack, easeOutExpo, progress } from '@/lib/motion'
 import { BrandIcon } from '../brand-icon'
 import { Eyebrow, Reveal, SceneShell, TitleWords } from '../primitives'
 import type { SceneProps } from '../types'
+import { tr } from '../translations'
 
 const ORANGE = '#ff7a00'
 const GREEN = '#2be37b'
 const ADDRESS = 'zo7al.play-mc.fun'
 
-export function MinecraftScene({ t, duration }: SceneProps) {
+export function MinecraftScene({ t, duration, language = 'ar' }: SceneProps) {
   const typed = Math.floor(progress(t, 1.3, 1.3) * ADDRESS.length)
   const caretVisible = Math.floor(t * 2.5) % 2 === 0
   const card = easeOutExpo(progress(t, 0.6, 1))
@@ -20,18 +21,18 @@ export function MinecraftScene({ t, duration }: SceneProps) {
       <div className="flex h-full items-center justify-between px-[150px]">
         <div className="max-w-[760px]">
           <Reveal t={t} at={0.2}>
-            <Eyebrow accent={ORANGE}>ماينكرافت · جافا + بيدروك</Eyebrow>
+            <Eyebrow accent={ORANGE}>{tr(language, 'mcEyebrow')}</Eyebrow>
           </Reveal>
           <TitleWords
             t={t}
             at={0.35}
-            words={['شبكة', 'زحل']}
+            words={tr(language, 'mcTitle').split('|')}
             accentIndex={1}
             accent={ORANGE}
             className="mt-8 text-[150px] font-bold leading-[1.05] text-white"
           />
           <Reveal t={t} at={0.9} className="mt-8 text-[40px] leading-relaxed text-[#c9ced6]">
-            مغامرتك القادمة في ماينكرافت تبدأ من هنا.
+            {tr(language, 'mcDesc')}
           </Reveal>
           <div className="mt-12 flex gap-4" dir="ltr">
             {['1.8.9', '1.20.x', '1.21.x'].map((version, i) => (
@@ -72,11 +73,11 @@ export function MinecraftScene({ t, duration }: SceneProps) {
                 />
                 <span className="relative h-4 w-4 rounded-full bg-[#2be37b]" />
               </span>
-              جاهزة للعب
+              {tr(language, 'ready')}
             </div>
           </div>
 
-          <div className="mt-10 text-[24px] text-[#8f96a3]">جافا وبيدروك · IP</div>
+          <div className="mt-10 text-[24px] text-[#8f96a3]">{tr(language, 'javaBedrock')}</div>
           <div
             dir="ltr"
             className="mt-3 rounded-2xl border border-white/10 bg-black/40 px-7 py-6 text-left text-[46px] text-white"
@@ -89,7 +90,7 @@ export function MinecraftScene({ t, duration }: SceneProps) {
           </div>
 
           <Reveal t={t} at={2.7} y={20} className="mt-8 flex items-center justify-between rounded-2xl bg-white/5 px-7 py-5">
-            <span className="text-[26px] text-[#8f96a3]">منفذ Bedrock</span>
+            <span className="text-[26px] text-[#8f96a3]">{tr(language, 'bedrockPort')}</span>
             <span dir="ltr" className="text-[34px] text-white" style={{ fontFamily: 'Monocraft, monospace' }}>
               25807
             </span>
@@ -101,21 +102,21 @@ export function MinecraftScene({ t, duration }: SceneProps) {
 }
 
 const PLATFORMS = [
-  { icon: siModrinth, name: 'Modrinth', label: 'مباشر من Modrinth', color: '#00af5c' },
-  { icon: siCurseforge, name: 'CurseForge', label: 'مباشر من CURSEFORGE', color: '#f16436' },
+  { icon: siModrinth, name: 'Modrinth', label: 'directModrinth', color: '#00af5c' },
+  { icon: siCurseforge, name: 'CurseForge', label: 'directCurseforge', color: '#f16436' },
 ]
 
-export function ModpacksScene({ t, duration }: SceneProps) {
+export function ModpacksScene({ t, duration, language = 'ar' }: SceneProps) {
   return (
     <SceneShell t={t} duration={duration} accent={GREEN} glowPosition="50% 70%">
       <div className="flex h-full flex-col items-center justify-center px-[150px] text-center">
         <Reveal t={t} at={0.2}>
-          <Eyebrow accent={GREEN}>المودباكات</Eyebrow>
+          <Eyebrow accent={GREEN}>{tr(language, 'modsEyebrow')}</Eyebrow>
         </Reveal>
         <TitleWords
           t={t}
           at={0.35}
-          words={['ماينكرافت،', 'بحلّة', 'جديدة.']}
+          words={tr(language, 'modsTitle').split('|')}
           accentIndex={2}
           accent={GREEN}
           className="mt-8 text-[130px] font-bold leading-[1.1] text-white"
@@ -145,7 +146,7 @@ export function ModpacksScene({ t, duration }: SceneProps) {
                   </div>
                   <div className="mt-2 flex items-center gap-3 text-[22px] font-semibold text-[#2be37b]">
                     <span className="h-2.5 w-2.5 rounded-full bg-[#2be37b]" />
-                    {platform.label}
+                    {tr(language, platform.label as 'directModrinth' | 'directCurseforge')}
                   </div>
                 </div>
               </div>
@@ -153,7 +154,7 @@ export function ModpacksScene({ t, duration }: SceneProps) {
           })}
         </div>
         <Reveal t={t} at={2.1} className="mt-14 text-[34px] text-[#c9ced6]">
-          تحديثات المودباكات من Modrinth وCurseForge، كلها في مكان واحد.
+          {tr(language, 'modsDesc')}
         </Reveal>
       </div>
     </SceneShell>

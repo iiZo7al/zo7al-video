@@ -21,7 +21,7 @@ if not exist node_modules (
 )
 
 start "" cmd /c ""%~f0" open"
-call pnpm dev
+call pnpm dev --webpack
 pause
 exit /b
 

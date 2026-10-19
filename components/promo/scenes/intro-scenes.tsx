@@ -4,11 +4,12 @@ import dynamic from 'next/dynamic'
 import { easeOutExpo, progress } from '@/lib/motion'
 import { Reveal, SceneShell } from '../primitives'
 import type { SceneProps } from '../types'
+import { tr } from '../translations'
 
 const ORANGE = '#ff7a00'
 const Saturn3D = dynamic(() => import('../saturn-3d'), { ssr: false })
 
-export function IntroScene({ t, duration }: SceneProps) {
+export function IntroScene({ t, duration, language = 'ar' }: SceneProps) {
   const letters = 'ZO7AL'.split('')
   const projects = easeOutExpo(progress(t, 2.3, 1))
 
@@ -53,27 +54,22 @@ export function IntroScene({ t, duration }: SceneProps) {
         </div>
 
         <Reveal t={t} at={2.9} className="mt-6 text-[30px] text-[#8f96a3]">
-          <span dir="ltr">@iiZo7al</span> — عالم زحل الترفيهي
+          <span dir="ltr">@iiZo7al</span> — {tr(language, 'intro')}
         </Reveal>
       </div>
     </SceneShell>
   )
 }
 
-const HEADLINE = [
-  { word: 'ابنِ.', at: 0.3 },
-  { word: 'العب.', at: 0.95 },
-  { word: 'أبدع.', at: 1.6 },
-]
-
-export function HeadlineScene({ t, duration }: SceneProps) {
+export function HeadlineScene({ t, duration, language = 'ar' }: SceneProps) {
+  const headline = tr(language, 'headline').split('|').map((word, index) => ({ word, at: 0.3 + index * 0.65 }))
   return (
     <SceneShell t={t} duration={duration} accent={ORANGE} glowPosition="50% 55%">
       <div className="flex h-full flex-col items-center justify-center">
         <div className="flex items-baseline gap-14 text-[210px] font-bold leading-[1.1] text-white">
-          {HEADLINE.map(({ word, at }, i) => {
+          {headline.map(({ word, at }, i) => {
             const p = easeOutExpo(progress(t, at, 0.75))
-            const isLast = i === HEADLINE.length - 1
+            const isLast = i === headline.length - 1
             return (
               <span
                 key={word}
@@ -94,7 +90,7 @@ export function HeadlineScene({ t, duration }: SceneProps) {
           })}
         </div>
         <Reveal t={t} at={2.4} className="mt-10 max-w-[1300px] text-center text-[40px] leading-relaxed text-[#c9ced6]">
-          سيرفرات ماينكرافت، مابات فورتنايت، مودباكات، ومشاريع ألعاب من زحل.
+          {tr(language, 'headlineDesc')}
         </Reveal>
         <Reveal t={t} at={2.9} className="mt-8 text-[22px] font-semibold tracking-[0.4em] text-[#8f96a3]">
           <span dir="ltr">BUILD · PLAY · CREATE</span>
