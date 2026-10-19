@@ -1,9 +1,8 @@
 import { easeOutBack, easeOutExpo, progress } from '@/lib/motion'
 import { Reveal, SceneShell } from '../primitives'
 import type { SceneProps } from '../types'
-import { tr } from '../translations'
 
-export function OutroScene({ t, duration, language = 'ar' }: SceneProps) {
+export function OutroScene({ t, duration }: SceneProps) {
   const bg = easeOutExpo(progress(t, 0, 1.6))
   const logo = easeOutBack(progress(t, 0.5, 1))
   const float = Math.sin(t * 1.6) * 10
@@ -32,16 +31,13 @@ export function OutroScene({ t, duration, language = 'ar' }: SceneProps) {
         />
         <Reveal t={t} at={1.1} className="mt-8 text-[120px] font-bold leading-none text-white">
           <span dir="ltr">
-            ZO<span className="text-[#ff7a00]">7</span>AL
+            ZO7AL
           </span>
         </Reveal>
         <Reveal t={t} at={1.3} className="mt-4 text-[40px] font-semibold tracking-[0.6em] text-[#ff7a00]">
           <span dir="ltr" className="ps-[0.6em]">
             PROJECTS
           </span>
-        </Reveal>
-        <Reveal t={t} at={1.5} className="mt-8 text-[48px] font-semibold text-[#c9ced6]">
-          {tr(language, 'outro')}
         </Reveal>
         <Reveal
           t={t}

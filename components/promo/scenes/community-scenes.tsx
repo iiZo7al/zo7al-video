@@ -55,7 +55,7 @@ export function FortniteScene({ t, duration, language = 'ar' }: SceneProps) {
             className="mb-4 inline-flex items-center gap-4 rounded-full border border-[#8b5cf6]/40 bg-[#8b5cf6]/15 px-8 py-4 text-[28px] font-semibold text-white"
           >
             {tr(language, 'creator')}
-            <span dir="ltr" className="text-[#19d9ff]">
+            <span dir="ltr" className="text-[#8b5cf6]">
               Zo7al
             </span>
           </Reveal>
