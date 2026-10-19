@@ -23,7 +23,7 @@ const ISLANDS = [
   { code: '0633-4212-9611', title: 'سنايبرات زحل' },
   { code: '3325-4001-0926', title: 'SOLO SCRIMS GALAXY' },
   { code: '4904-5829-1966', title: 'ALL WEAPONS' },
-  { code: '6387-4453-1682', title: 'حرب الكلانات' },
+  { code: '6995-1684-7602', title: '1v1v1 Reload' },
   { code: '2994-5126-9804', title: 'Best 1v1 Map' },
   { code: '3310-5985-8629', title: 'أحمر مقابل أزرق' },
   { code: '2404-2844-7787', title: 'عاركني بالبناء' },
