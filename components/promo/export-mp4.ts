@@ -1,9 +1,13 @@
 import { ArrayBufferTarget, Muxer } from 'mp4-muxer'
 import { TOTAL_DURATION } from './timeline'
 
-export const VIDEO_WIDTH = 1920
-export const VIDEO_HEIGHT = 1080
-export const VIDEO_FPS = 24
+export const STAGE_WIDTH = 1920
+export const STAGE_HEIGHT = 1080
+// The stage is authored at 1080p; exports rasterise it at 4K through VIDEO_SCALE.
+export const VIDEO_WIDTH = 3840
+export const VIDEO_HEIGHT = 2160
+export const VIDEO_FPS = 120
+export const VIDEO_SCALE = VIDEO_WIDTH / STAGE_WIDTH
 export const VIDEO_FRAMES = TOTAL_DURATION * VIDEO_FPS
 
 export async function exportMp4(renderFrame: (frame: number) => Promise<HTMLCanvasElement>, onProgress: (progress: number) => void) {
@@ -12,9 +16,11 @@ export async function exportMp4(renderFrame: (frame: number) => Promise<HTMLCanv
   }
 
   const configCandidates: VideoEncoderConfig[] = [
-    { codec: 'avc1.640028', width: VIDEO_WIDTH, height: VIDEO_HEIGHT, bitrate: 8_000_000, framerate: VIDEO_FPS },
-    { codec: 'avc1.4d0028', width: VIDEO_WIDTH, height: VIDEO_HEIGHT, bitrate: 6_000_000, framerate: VIDEO_FPS },
-    { codec: 'avc1.420028', width: VIDEO_WIDTH, height: VIDEO_HEIGHT, bitrate: 4_000_000, framerate: VIDEO_FPS },
+    // 4K@120 needs an H.264 level of 5.1+; level 4.0 (avc1.640028) is rejected at this size.
+    { codec: 'avc1.640034', width: VIDEO_WIDTH, height: VIDEO_HEIGHT, bitrate: 48_000_000, framerate: VIDEO_FPS },
+    { codec: 'avc1.640033', width: VIDEO_WIDTH, height: VIDEO_HEIGHT, bitrate: 48_000_000, framerate: VIDEO_FPS },
+    { codec: 'avc1.4d0034', width: VIDEO_WIDTH, height: VIDEO_HEIGHT, bitrate: 40_000_000, framerate: VIDEO_FPS },
+    { codec: 'avc1.420034', width: VIDEO_WIDTH, height: VIDEO_HEIGHT, bitrate: 24_000_000, framerate: VIDEO_FPS },
   ]
   let config: VideoEncoderConfig | undefined
   for (const candidate of configCandidates) {

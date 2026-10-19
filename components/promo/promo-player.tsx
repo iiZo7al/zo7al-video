@@ -8,9 +8,7 @@ import { PromoStage } from './promo-stage'
 import { getScenes, TOTAL_DURATION } from './timeline'
 import { useVideoClock } from './use-video-clock'
 import type { Language } from './types'
-import { exportMp4, VIDEO_FPS, VIDEO_HEIGHT, VIDEO_WIDTH } from './export-mp4'
-
-const STAGE_WIDTH = 1920
+import { exportMp4, STAGE_HEIGHT, STAGE_WIDTH, VIDEO_FPS, VIDEO_SCALE } from './export-mp4'
 
 type Mp4FileHandle = {
   createWritable: () => Promise<{
@@ -89,7 +87,7 @@ export function PromoPlayer({ language }: { language: Language }) {
     let fileHandle: Mp4FileHandle | undefined
 
     // Open the save prompt while the click still has a user gesture. Encoding
-    // all 720 frames can take long enough for browsers to block a late download.
+    // all 3600 frames can take long enough for browsers to block a late download.
     if (pickerWindow.showSaveFilePicker) {
       try {
         fileHandle = await pickerWindow.showSaveFilePicker({
@@ -113,7 +111,7 @@ export function PromoPlayer({ language }: { language: Language }) {
         seek(index / VIDEO_FPS)
         await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())))
         if (!stageRef.current) throw new Error('Video stage was removed')
-        return toCanvas(stageRef.current, { width: VIDEO_WIDTH, height: VIDEO_HEIGHT, pixelRatio: 1 })
+        return toCanvas(stageRef.current, { width: STAGE_WIDTH, height: STAGE_HEIGHT, pixelRatio: VIDEO_SCALE })
       }, setExportProgress)
       if (fileHandle) {
         const writable = await fileHandle.createWritable()
