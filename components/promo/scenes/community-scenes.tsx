@@ -1,3 +1,4 @@
+import { Crown, ShieldCheck, Sparkles, Zap } from 'lucide-react'
 import {
   siDiscord,
   siInstagram,
@@ -151,52 +152,202 @@ export function SocialsScene({ t, duration, language = 'ar' }: SceneProps) {
   )
 }
 
-const RANKS = [
-  { name: 'VIP', image: '/video/rank-vip.png' },
-  { name: 'VIP+', image: '/video/rank-vipp.png' },
-  { name: 'VIP++', image: '/video/rank-vippp.png' },
-  { name: 'MVP', image: '/video/rank-mvp.png' },
-  { name: 'MVP+', image: '/video/rank-mvpp.png' },
-  { name: 'MVP++', image: '/video/rank-mvppp.png' },
+type RankConfig = {
+  name: string
+  image: string
+  tier: string
+  badge: string
+  accent: string
+  border: string
+  glow: string
+  bgGlow: string
+  tagColor: string
+  tagBg: string
+  special?: 'crown' | 'sparkle'
+}
+
+const RANKS: RankConfig[] = [
+  {
+    name: 'VIP',
+    image: '/video/rank-vip.png',
+    tier: 'VIP TIER',
+    badge: 'TIER I',
+    accent: '#4ade80',
+    border: 'rgba(74, 222, 128, 0.35)',
+    glow: 'rgba(74, 222, 128, 0.22)',
+    bgGlow: 'rgba(74, 222, 128, 0.16)',
+    tagColor: 'text-[#4ade80]',
+    tagBg: 'bg-[#4ade80]/15 border-[#4ade80]/30',
+  },
+  {
+    name: 'VIP+',
+    image: '/video/rank-vipp.png',
+    tier: 'VIP TIER',
+    badge: 'TIER II',
+    accent: '#22c55e',
+    border: 'rgba(34, 197, 94, 0.4)',
+    glow: 'rgba(34, 197, 94, 0.26)',
+    bgGlow: 'rgba(34, 197, 94, 0.18)',
+    tagColor: 'text-[#86efac]',
+    tagBg: 'bg-[#22c55e]/15 border-[#22c55e]/30',
+  },
+  {
+    name: 'VIP++',
+    image: '/video/rank-vippp.png',
+    tier: 'VIP TIER',
+    badge: 'VIP ELITE',
+    accent: '#10b981',
+    border: 'rgba(16, 185, 129, 0.55)',
+    glow: 'rgba(16, 185, 129, 0.35)',
+    bgGlow: 'rgba(16, 185, 129, 0.22)',
+    tagColor: 'text-[#6ee7b7]',
+    tagBg: 'bg-[#10b981]/20 border-[#10b981]/40',
+    special: 'sparkle',
+  },
+  {
+    name: 'MVP',
+    image: '/video/rank-mvp.png',
+    tier: 'MVP PRESTIGE',
+    badge: 'PRESTIGE',
+    accent: '#fbbf24',
+    border: 'rgba(251, 191, 36, 0.4)',
+    glow: 'rgba(251, 191, 36, 0.26)',
+    bgGlow: 'rgba(251, 191, 36, 0.18)',
+    tagColor: 'text-[#fbbf24]',
+    tagBg: 'bg-[#fbbf24]/15 border-[#fbbf24]/30',
+  },
+  {
+    name: 'MVP+',
+    image: '/video/rank-mvpp.png',
+    tier: 'MVP PRESTIGE',
+    badge: 'HEROIC',
+    accent: '#f59e0b',
+    border: 'rgba(245, 158, 11, 0.45)',
+    glow: 'rgba(245, 158, 11, 0.3)',
+    bgGlow: 'rgba(245, 158, 11, 0.22)',
+    tagColor: 'text-[#fcd34d]',
+    tagBg: 'bg-[#f59e0b]/15 border-[#f59e0b]/30',
+  },
+  {
+    name: 'MVP++',
+    image: '/video/rank-mvppp.png',
+    tier: 'MVP PRESTIGE',
+    badge: 'ULTIMATE',
+    accent: '#ff7a00',
+    border: 'rgba(255, 122, 0, 0.65)',
+    glow: 'rgba(255, 122, 0, 0.42)',
+    bgGlow: 'rgba(255, 122, 0, 0.28)',
+    tagColor: 'text-[#fed7aa]',
+    tagBg: 'bg-[#ff7a00]/25 border-[#ff7a00]/50',
+    special: 'crown',
+  },
 ]
 
 export function StoreScene({ t, duration, language = 'ar' }: SceneProps) {
   return (
-    <SceneShell t={t} duration={duration} accent={ORANGE} glowPosition="50% 70%">
-      <div className="flex h-full flex-col items-center justify-center px-[150px] text-center">
-        <Reveal t={t} at={0.2} className="flex justify-center">
+    <SceneShell t={t} duration={duration} accent={ORANGE} glowPosition="50% 65%">
+      <div className="flex h-full flex-col items-center justify-center px-[120px] text-center">
+        <Reveal t={t} at={0.15}>
           <Eyebrow accent={ORANGE}>{tr(language, 'storeEyebrow')}</Eyebrow>
         </Reveal>
         <TitleWords
           t={t}
-          at={0.35}
+          at={0.3}
           words={tr(language, 'storeTitle').split('|')}
           accentIndex={2}
           accent={ORANGE}
-          className="mt-5 text-[110px] font-bold leading-[1.1] text-white"
+          className="mt-4 text-[92px] font-black leading-[1.05] tracking-tight text-white"
         />
-        <div dir="ltr" className="mt-10 grid grid-cols-3 gap-6">
+
+        <div dir="ltr" className="mt-7 grid grid-cols-3 gap-6">
           {RANKS.map((rank, i) => {
-            const p = easeOutBack(progress(t, 0.8 + i * 0.12, 0.85))
-            const float = Math.sin(t * 2 + i) * 6
+            const p = easeOutBack(progress(t, 0.6 + i * 0.1, 0.8))
+            const float = Math.sin(t * 2.4 + i * 1.05) * 5
             return (
               <div
                 key={rank.name}
-                className="flex w-[440px] items-center justify-center rounded-[28px] border border-[#ff7a00]/20 px-6 py-4"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-[26px] border bg-[#0d1017]/95 p-4 text-left"
                 style={{
+                  width: '460px',
+                  height: '185px',
                   opacity: Math.min(1, Math.max(0, p)),
-                  transform: `translateY(${(1 - p) * 120 + float}px) scale(${Math.max(0, p)})`,
-                  background: 'radial-gradient(ellipse at 50% 60%, rgba(255,122,0,0.22), #11141b 70%)',
-                  boxShadow: '0 0 60px rgba(255,122,0,0.14)',
+                  transform: `perspective(1000px) translateY(${(1 - p) * 90 + float}px) scale(${Math.max(0, p)})`,
+                  borderColor: rank.border,
+                  background: `radial-gradient(120% 120% at 50% 20%, ${rank.bgGlow}, #0a0d13 80%)`,
+                  boxShadow: `0 20px 45px rgba(0,0,0,0.6), 0 0 50px ${rank.glow}`,
                 }}
               >
-                <img src={rank.image} alt={rank.name} className="aspect-[666/375] w-full object-contain" />
+                {/* Backlight Glow */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[40px]"
+                  style={{
+                    width: '260px',
+                    height: '100px',
+                    background: rank.accent,
+                    opacity: 0.16 + Math.sin(t * 3 + i) * 0.05,
+                  }}
+                />
+
+                {/* Header row */}
+                <div className="relative z-10 flex items-center justify-between px-2 pt-0.5">
+                  <div className="flex items-center gap-2 font-mono text-[16px] font-semibold tracking-wider text-[#94a3b8]">
+                    <span
+                      className="h-2 w-2 rounded-full"
+                      style={{ background: rank.accent, boxShadow: `0 0 10px ${rank.accent}` }}
+                    />
+                    {rank.tier}
+                  </div>
+                  <div
+                    className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[14px] font-bold uppercase tracking-wider ${rank.tagBg} ${rank.tagColor}`}
+                  >
+                    {rank.special === 'crown' && <Crown className="h-3.5 w-3.5 text-[#fbbf24]" />}
+                    {rank.special === 'sparkle' && <Sparkles className="h-3.5 w-3.5 text-[#34d399]" />}
+                    {rank.badge}
+                  </div>
+                </div>
+
+                {/* Centered 3D Rank Badge */}
+                <div className="relative z-10 flex flex-1 items-center justify-center py-1">
+                  <img
+                    src={rank.image}
+                    alt={rank.name}
+                    className="max-h-[105px] w-auto object-contain"
+                    style={{
+                      filter: `drop-shadow(0 10px 22px ${rank.glow})`,
+                      transform: `scale(${1 + Math.sin(t * 2.8 + i) * 0.02})`,
+                    }}
+                  />
+                </div>
+
+                {/* Subtle bottom shine line */}
+                <div
+                  aria-hidden="true"
+                  className="relative z-10 h-[2px] w-full rounded-full opacity-35"
+                  style={{
+                    background: `linear-gradient(90deg, transparent, ${rank.accent}, transparent)`,
+                  }}
+                />
               </div>
             )
           })}
         </div>
-        <Reveal t={t} at={2.2} className="mt-10 text-[30px] text-[#c9ced6]">
-          {tr(language, 'storeDesc')}
+
+        {/* Tebex Official Store Trust Banner */}
+        <Reveal t={t} at={1.8} y={24} className="mt-8 flex justify-center">
+          <div className="inline-flex items-center gap-5 rounded-full border border-white/10 bg-[#0e1219]/90 px-8 py-3.5 shadow-[0_16px_50px_rgba(0,0,0,0.6)] backdrop-blur-md">
+            <div className="flex items-center gap-2 rounded-full border border-[#2be37b]/30 bg-[#2be37b]/15 px-4 py-1.5 text-[18px] font-bold text-[#2be37b]">
+              <ShieldCheck className="h-5 w-5 text-[#2be37b]" />
+              <span>TEBEX VERIFIED</span>
+            </div>
+            <span className="text-[25px] font-medium text-[#e2e8f0]">
+              {tr(language, 'storeDesc')}
+            </span>
+            <div className="flex items-center gap-2 rounded-full border border-[#ff7a00]/30 bg-[#ff7a00]/15 px-4 py-1.5 text-[18px] font-semibold text-[#ffaa40]">
+              <Zap className="h-4 w-4 text-[#ff7a00]" />
+              <span>INSTANT ACCESS</span>
+            </div>
+          </div>
         </Reveal>
       </div>
     </SceneShell>
