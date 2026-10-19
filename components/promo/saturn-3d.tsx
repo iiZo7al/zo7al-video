@@ -77,7 +77,7 @@ export default function Saturn3D({ t }: { t: number }) {
   return (
     <Canvas
       gl={{ antialias: true, powerPreference: 'high-performance', preserveDrawingBuffer: true }}
-      dpr={[1, 1.5]}
+      dpr={2}
       resize={{ offsetSize: true }}
       style={{ background: 'transparent' }}
       aria-hidden="true"
