@@ -31,7 +31,6 @@ export function IntroScene({ t, duration, language = 'ar' }: SceneProps) {
                   opacity: p,
                   transform: `translateY(${(1 - p) * 90}px) rotate(${(1 - p) * 8}deg)`,
                   filter: `blur(${(1 - p) * 12}px)`,
-                  color: letter === '7' ? ORANGE : undefined,
                 }}
               >
                 {letter}
@@ -53,47 +52,12 @@ export function IntroScene({ t, duration, language = 'ar' }: SceneProps) {
           PROJECTS
         </div>
 
-        <Reveal t={t} at={2.9} className="mt-6 text-[30px] text-[#8f96a3]">
-          <span dir="ltr">@iiZo7al</span> — {tr(language, 'intro')}
-        </Reveal>
-      </div>
-    </SceneShell>
-  )
-}
-
-export function HeadlineScene({ t, duration, language = 'ar' }: SceneProps) {
-  const headline = tr(language, 'headline').split('|').map((word, index) => ({ word, at: 0.3 + index * 0.65 }))
-  return (
-    <SceneShell t={t} duration={duration} accent={ORANGE} glowPosition="50% 55%">
-      <div className="flex h-full flex-col items-center justify-center">
-        <div className="flex items-baseline gap-14 text-[210px] font-bold leading-[1.1] text-white">
-          {headline.map(({ word, at }, i) => {
-            const p = easeOutExpo(progress(t, at, 0.75))
-            const isLast = i === headline.length - 1
-            return (
-              <span
-                key={word}
-                className="inline-block"
-                style={{
-                  opacity: p,
-                  transform: `scale(${1.6 - 0.6 * p})`,
-                  filter: `blur(${(1 - p) * 18}px)`,
-                  color: isLast ? 'transparent' : undefined,
-                  backgroundImage: isLast ? 'linear-gradient(120deg, #ffc94a, #ff7a00 60%, #ff4d00)' : undefined,
-                  backgroundClip: isLast ? 'text' : undefined,
-                  WebkitBackgroundClip: isLast ? 'text' : undefined,
-                }}
-              >
-                {word}
-              </span>
-            )
-          })}
-        </div>
-        <Reveal t={t} at={2.4} className="mt-10 max-w-[1300px] text-center text-[40px] leading-relaxed text-[#c9ced6]">
+        <Reveal
+          t={t}
+          at={2.9}
+          className="mt-6 max-w-[1500px] px-10 text-center text-[34px] leading-relaxed text-[#c9ced6]"
+        >
           {tr(language, 'headlineDesc')}
-        </Reveal>
-        <Reveal t={t} at={2.9} className="mt-8 text-[22px] font-semibold tracking-[0.4em] text-[#8f96a3]">
-          <span dir="ltr">BUILD · PLAY · CREATE</span>
         </Reveal>
       </div>
     </SceneShell>

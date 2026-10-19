@@ -1,9 +1,10 @@
 import { ArrayBufferTarget, Muxer } from 'mp4-muxer'
+import { TOTAL_DURATION } from './timeline'
 
 export const VIDEO_WIDTH = 1920
 export const VIDEO_HEIGHT = 1080
 export const VIDEO_FPS = 24
-export const VIDEO_FRAMES = 35 * VIDEO_FPS
+export const VIDEO_FRAMES = TOTAL_DURATION * VIDEO_FPS
 
 export async function exportMp4(renderFrame: (frame: number) => Promise<HTMLCanvasElement>, onProgress: (progress: number) => void) {
   if (typeof VideoEncoder === 'undefined' || typeof VideoFrame === 'undefined') {

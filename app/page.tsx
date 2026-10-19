@@ -17,16 +17,16 @@ const languages = [
 ] as const
 
 const copy = {
-  ar: { title: 'فيديو تعريفي لموقع', description: 'جولة سينمائية خلال ٣٥ ثانية في عالم زحل: شبكة ماينكرافت، المودباكات، مابات فورتنايت، التواصل والمتجر.' },
-  en: { title: 'Introducing the', description: 'A 35-second cinematic tour of ZO7AL: Minecraft, modpacks, Fortnite maps, community, and store.' },
-  es: { title: 'Conoce', description: 'Un recorrido cinematográfico de 35 segundos por ZO7AL: Minecraft, modpacks, mapas de Fortnite, comunidad y tienda.' },
-  fr: { title: 'Découvrez', description: 'Une visite cinématographique de 35 secondes de ZO7AL : Minecraft, modpacks, cartes Fortnite, communauté et boutique.' },
-  de: { title: 'Lerne kennen:', description: 'Eine filmische 35-Sekunden-Tour durch ZO7AL: Minecraft, Modpacks, Fortnite-Karten, Community und Shop.' },
-  pt: { title: 'Conheça', description: 'Um tour cinematográfico de 35 segundos pelo ZO7AL: Minecraft, modpacks, mapas de Fortnite, comunidade e loja.' },
-  tr: { title: 'Tanıtım videosu:', description: 'ZO7AL dünyasında 35 saniyelik sinematik bir tur: Minecraft, mod paketleri, Fortnite haritaları, topluluk ve mağaza.' },
-  ja: { title: 'ZO7ALの紹介', description: 'Minecraft、Modパック、Fortniteマップ、コミュニティ、ショップを巡る35秒のシネマティックツアー。' },
-  ko: { title: 'ZO7AL 소개 영상', description: '마인크래프트, 모드팩, 포트나이트 맵, 커뮤니티와 스토어를 둘러보는 35초 시네마틱 투어.' },
-  zh: { title: 'ZO7AL 网站介绍', description: '用 35 秒电影感旅程探索 ZO7AL：Minecraft、模组包、Fortnite 地图、社区和商店。' },
+  ar: { title: 'فيديو تعريفي لموقع', description: 'جولة سينمائية خلال ٣٠ ثانية في عالم زحل: شبكة ماينكرافت، المودباكات، مابات فورتنايت، التواصل والمتجر.' },
+  en: { title: 'Introducing the', description: 'A 30-second cinematic tour of ZO7AL: Minecraft, modpacks, Fortnite maps, community, and store.' },
+  es: { title: 'Conoce', description: 'Un recorrido cinematográfico de 30 segundos por ZO7AL: Minecraft, modpacks, mapas de Fortnite, comunidad y tienda.' },
+  fr: { title: 'Découvrez', description: 'Une visite cinématographique de 30 secondes de ZO7AL : Minecraft, modpacks, cartes Fortnite, communauté et boutique.' },
+  de: { title: 'Lerne kennen:', description: 'Eine filmische 30-Sekunden-Tour durch ZO7AL: Minecraft, Modpacks, Fortnite-Karten, Community und Shop.' },
+  pt: { title: 'Conheça', description: 'Um tour cinematográfico de 30 segundos pelo ZO7AL: Minecraft, modpacks, mapas de Fortnite, comunidade e loja.' },
+  tr: { title: 'Tanıtım videosu:', description: 'ZO7AL dünyasında 30 saniyelik sinematik bir tur: Minecraft, mod paketleri, Fortnite haritaları, topluluk ve mağaza.' },
+  ja: { title: 'ZO7ALの紹介', description: 'Minecraft、Modパック、Fortniteマップ、コミュニティ、ショップを巡る30秒のシネマティックツアー。' },
+  ko: { title: 'ZO7AL 소개 영상', description: '마인크래프트, 모드팩, 포트나이트 맵, 커뮤니티와 스토어를 둘러보는 30초 시네마틱 투어.' },
+  zh: { title: 'ZO7AL 网站介绍', description: '用 30 秒电影感旅程探索 ZO7AL：Minecraft、模组包、Fortnite 地图、社区和商店。' },
 } as const
 
 export default function Page() {

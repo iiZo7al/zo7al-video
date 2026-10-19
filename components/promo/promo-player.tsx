@@ -89,7 +89,7 @@ export function PromoPlayer({ language }: { language: Language }) {
     let fileHandle: Mp4FileHandle | undefined
 
     // Open the save prompt while the click still has a user gesture. Encoding
-    // all 840 frames can take long enough for browsers to block a late download.
+    // all 720 frames can take long enough for browsers to block a late download.
     if (pickerWindow.showSaveFilePicker) {
       try {
         fileHandle = await pickerWindow.showSaveFilePicker({
