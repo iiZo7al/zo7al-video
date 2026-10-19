@@ -22,15 +22,15 @@ export function tr(language: Language, key: CopyKey): string {
 
 const mapTitles: Record<Language, Record<string, string>> = {
   ar: {},
-  en: { '0633-4212-9611': 'ZO7AL Snipers', '6387-4453-1682': 'Clan Wars', '3310-5985-8629': 'Red vs Blue', '2404-2844-7787': 'Build Fight' },
-  es: { '0633-4212-9611': 'Francotiradores ZO7AL', '6387-4453-1682': 'Guerra de clanes', '3310-5985-8629': 'Rojo contra azul', '2404-2844-7787': 'Combate de construcción' },
-  fr: { '0633-4212-9611': 'Snipers ZO7AL', '6387-4453-1682': 'Guerre des clans', '3310-5985-8629': 'Rouge contre bleu', '2404-2844-7787': 'Combat de construction' },
-  de: { '0633-4212-9611': 'ZO7AL Scharfschützen', '6387-4453-1682': 'Clan-Krieg', '3310-5985-8629': 'Rot gegen Blau', '2404-2844-7787': 'Bau-Kampf' },
-  pt: { '0633-4212-9611': 'Snipers ZO7AL', '6387-4453-1682': 'Guerra de clãs', '3310-5985-8629': 'Vermelho contra azul', '2404-2844-7787': 'Luta de construção' },
-  tr: { '0633-4212-9611': 'ZO7AL Nişancıları', '6387-4453-1682': 'Klan Savaşı', '3310-5985-8629': 'Kırmızıya karşı mavi', '2404-2844-7787': 'İnşa savaşı' },
-  ja: { '0633-4212-9611': 'ZO7ALスナイパー', '6387-4453-1682': 'クラン戦争', '3310-5985-8629': '赤対青', '2404-2844-7787': '建築バトル' },
-  ko: { '0633-4212-9611': 'ZO7AL 저격수', '6387-4453-1682': '클랜 전쟁', '3310-5985-8629': '레드 대 블루', '2404-2844-7787': '건축 대결' },
-  zh: { '0633-4212-9611': 'ZO7AL 狙击战', '6387-4453-1682': '战队战争', '3310-5985-8629': '红队对蓝队', '2404-2844-7787': '建筑对决' },
+  en: { '0633-4212-9611': 'ZO7AL Snipers', '3310-5985-8629': 'Red vs Blue', '2404-2844-7787': 'Build Fight' },
+  es: { '0633-4212-9611': 'Francotiradores ZO7AL', '3310-5985-8629': 'Rojo contra azul', '2404-2844-7787': 'Combate de construcción' },
+  fr: { '0633-4212-9611': 'Snipers ZO7AL', '3310-5985-8629': 'Rouge contre bleu', '2404-2844-7787': 'Combat de construction' },
+  de: { '0633-4212-9611': 'ZO7AL Scharfschützen', '3310-5985-8629': 'Rot gegen Blau', '2404-2844-7787': 'Bau-Kampf' },
+  pt: { '0633-4212-9611': 'Snipers ZO7AL', '3310-5985-8629': 'Vermelho contra azul', '2404-2844-7787': 'Luta de construção' },
+  tr: { '0633-4212-9611': 'ZO7AL Nişancıları', '3310-5985-8629': 'Kırmızıya karşı mavi', '2404-2844-7787': 'İnşa savaşı' },
+  ja: { '0633-4212-9611': 'ZO7ALスナイパー', '3310-5985-8629': '赤対青', '2404-2844-7787': '建築バトル' },
+  ko: { '0633-4212-9611': 'ZO7AL 저격수', '3310-5985-8629': '레드 대 블루', '2404-2844-7787': '건축 대결' },
+  zh: { '0633-4212-9611': 'ZO7AL 狙击战', '3310-5985-8629': '红队对蓝队', '2404-2844-7787': '建筑对决' },
 }
 
 export function localizeMapTitle(language: Language, code: string, original: string): string {
