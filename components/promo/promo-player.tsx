@@ -12,6 +12,20 @@ import { exportMp4, VIDEO_FPS, VIDEO_HEIGHT, VIDEO_WIDTH } from './export-mp4'
 
 const STAGE_WIDTH = 1920
 
+type Mp4FileHandle = {
+  createWritable: () => Promise<{
+    write: (data: Blob) => Promise<void>
+    close: () => Promise<void>
+  }>
+}
+
+type SaveFilePickerWindow = Window & {
+  showSaveFilePicker?: (options: {
+    suggestedName: string
+    types: Array<{ description: string; accept: Record<string, string[]> }>
+  }) => Promise<Mp4FileHandle>
+}
+
 const labels: Record<Language, { download: string; downloading: string; failed: string; title: string; play: string; pause: string; restart: string; position: string; fullscreen: string; scenes: string }> = {
   ar: { download: 'تحميل الفيديو', downloading: 'جارٍ تجهيز الفيديو…', failed: 'تعذر تصدير الفيديو في هذا المتصفح', title: 'فيديو تعريفي لموقع ZO7AL', play: 'تشغيل', pause: 'إيقاف مؤقت', restart: 'إعادة من البداية', position: 'موضع الفيديو', fullscreen: 'ملء الشاشة', scenes: 'مشاهد الفيديو' },
   en: { download: 'Download video', downloading: 'Exporting video…', failed: 'Video export is not supported by this browser', title: 'ZO7AL website introduction video', play: 'Play', pause: 'Pause', restart: 'Restart', position: 'Video position', fullscreen: 'Fullscreen', scenes: 'Video scenes' },
@@ -33,6 +47,7 @@ export function PromoPlayer({ language }: { language: Language }) {
   const [exporting, setExporting] = useState(false)
   const stageRef = useRef<HTMLDivElement>(null)
   const [exportProgress, setExportProgress] = useState(0)
+  const [exportError, setExportError] = useState(false)
   const copy = labels[language]
   const scenes = getScenes(language)
 
@@ -65,11 +80,32 @@ export function PromoPlayer({ language }: { language: Language }) {
 
   const downloadVideo = async () => {
     if (!stageRef.current || typeof VideoEncoder === 'undefined') {
-      window.alert(copy.failed)
+      setExportError(true)
       return
     }
+
+    const filename = `zo7al-intro-${language}.mp4`
+    const pickerWindow = window as SaveFilePickerWindow
+    let fileHandle: Mp4FileHandle | undefined
+
+    // Open the save prompt while the click still has a user gesture. Encoding
+    // all 840 frames can take long enough for browsers to block a late download.
+    if (pickerWindow.showSaveFilePicker) {
+      try {
+        fileHandle = await pickerWindow.showSaveFilePicker({
+          suggestedName: filename,
+          types: [{ description: 'MP4 video', accept: { 'video/mp4': ['.mp4'] } }],
+        })
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') return
+        setExportError(true)
+        return
+      }
+    }
+
     try {
       setExporting(true)
+      setExportError(false)
       setExportProgress(0)
       setPlaying(false)
       seek(0)
@@ -79,14 +115,24 @@ export function PromoPlayer({ language }: { language: Language }) {
         if (!stageRef.current) throw new Error('Video stage was removed')
         return toCanvas(stageRef.current, { width: VIDEO_WIDTH, height: VIDEO_HEIGHT, pixelRatio: 1 })
       }, setExportProgress)
-      const url = URL.createObjectURL(blob)
-      const anchor = document.createElement('a')
-      anchor.href = url
-      anchor.download = `zo7al-intro-${language}.mp4`
-      anchor.click()
-      window.setTimeout(() => URL.revokeObjectURL(url), 1000)
-    } catch {
-      window.alert(copy.failed)
+      if (fileHandle) {
+        const writable = await fileHandle.createWritable()
+        await writable.write(blob)
+        await writable.close()
+      } else {
+        const url = URL.createObjectURL(blob)
+        const anchor = document.createElement('a')
+        anchor.href = url
+        anchor.download = filename
+        anchor.hidden = true
+        document.body.append(anchor)
+        anchor.click()
+        anchor.remove()
+        window.setTimeout(() => URL.revokeObjectURL(url), 60_000)
+      }
+    } catch (error) {
+      console.error('MP4 export failed', error)
+      setExportError(true)
     } finally {
       setExporting(false)
       setPlaying(false)
@@ -204,9 +250,10 @@ export function PromoPlayer({ language }: { language: Language }) {
             )
           })}
         </nav>
-        <button type="button" onClick={downloadVideo} disabled={exporting} className="inline-flex w-fit items-center gap-2 rounded-xl bg-[#ff7a00] px-5 py-3 font-semibold text-black transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60">
+        <button type="button" onClick={downloadVideo} disabled={exporting || scale === 0} className="inline-flex w-fit items-center gap-2 rounded-xl bg-[#ff7a00] px-5 py-3 font-semibold text-black transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60">
           <Download className="h-4 w-4" />{exporting ? `${copy.downloading} ${Math.round(exportProgress * 100)}%` : copy.download}
         </button>
+        {exportError && <p role="status" className="text-sm text-red-300">{copy.failed}</p>}
       </div>
     </div>
   )
