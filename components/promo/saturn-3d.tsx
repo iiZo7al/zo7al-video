@@ -10,6 +10,7 @@ import { easeOutBack, progress } from '@/lib/motion'
 const RING_RADIUS = 5
 const RING_TILT = -Math.PI / 2.5
 const CAMERA_FOV = 45
+const PLANET_SCALE = 1.15
 const ORBIT_AXIS = new THREE.Vector3(0, Math.cos(RING_TILT), Math.sin(RING_TILT))
 
 function Saturn({ timeRef }: { timeRef: React.RefObject<number> }) {
@@ -27,18 +28,19 @@ function Saturn({ timeRef }: { timeRef: React.RefObject<number> }) {
   useFrame(() => {
     const t = timeRef.current ?? 0
     const scale = Math.max(0.0001, easeOutBack(progress(t, 0.1, 1.3)))
-    if (planetRef.current) planetRef.current.scale.setScalar(scale)
+    if (planetRef.current) planetRef.current.scale.setScalar(scale * PLANET_SCALE)
     if (groupRef.current) groupRef.current.position.y = Math.sin(t * 0.5) * 0.2
 
     if (moonRef.current) {
       const angle = 0.6 + t * 0.35
-      const orbitalOffset = Math.sin(angle) * RING_RADIUS
+      const orbitRadius = RING_RADIUS * PLANET_SCALE
+      const orbitalOffset = Math.sin(angle) * orbitRadius
       moonRef.current.position.set(
-        Math.cos(angle) * RING_RADIUS,
+        Math.cos(angle) * orbitRadius,
         orbitalOffset * ORBIT_AXIS.y,
         orbitalOffset * ORBIT_AXIS.z,
       )
-      moonRef.current.scale.setScalar(Math.max(0.0001, easeOutBack(progress(t, 0.8, 1))))
+      moonRef.current.scale.setScalar(Math.max(0.0001, easeOutBack(progress(t, 0.8, 1))) * PLANET_SCALE)
     }
   })
 

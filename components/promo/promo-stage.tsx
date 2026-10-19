@@ -20,7 +20,7 @@ export function PromoStage({ time, language, stageRef }: { time: number; languag
       <div
         dir="ltr"
         className="absolute left-14 top-12 flex items-center gap-3 rounded-full border border-white/10 bg-black/30 px-6 py-3 text-[22px] font-semibold"
-        style={{ opacity: badge * (time > 29.5 ? 0 : 1), transition: 'opacity 400ms' }}
+        style={{ opacity: badge * (time > 25 ? 0 : 1), transition: 'opacity 400ms' }}
       >
         <span className="h-3 w-3 rounded-full bg-[#ff7a00]" />
         Zo7al Projects
